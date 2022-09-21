@@ -20,7 +20,7 @@
 #         print(f"{string_name} is pure.")
 
 number = int(input())
-banned = [",", ".", "_", "h"]
+banned = [",", ".", "_"]
 pure = True
 for sequence in range(number):
     current_string = input()

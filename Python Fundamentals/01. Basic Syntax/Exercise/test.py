@@ -1,13 +1,14 @@
 number = int(input())
-banned = [",", ".", "_", "h"]
-pure = True
+banned = [",", ".", "_"]
+pureness = True
 for sequence in range(number):
-    string_name = input()
+    current_string = input()
     for letter in banned:
-        if letter in string_name:
-            pure = False
+        if letter in current_string:
+            pureness = False
             break
-    if pure:
-        print("string is pure")
-if not pure:
-    print("string is not pure")
+    if pureness:
+        print(f"{current_string} is pure.")
+    else:
+        print(f"{current_string} is not pure!")
+    pure = True
