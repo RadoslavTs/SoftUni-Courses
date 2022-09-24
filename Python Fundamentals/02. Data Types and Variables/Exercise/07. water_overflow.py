@@ -1,10 +1,12 @@
 number_of_fills = int(input())
-pouring_quantity = 0
-total_quantity_filled = 0
-for sequence in range(1, number_of_fills + 1):
-    pouring_quantity = int(input())
-    total_quantity_filled += pouring_quantity
-    if total_quantity_filled > 255:
+capacity = 255
+filling_water = 0
+total_water_filled = 0
+for sequence in range(number_of_fills):
+    filling_water = int(input())
+    if filling_water > capacity:
         print("Insufficient capacity!")
-        total_quantity_filled -= pouring_quantity
-print(total_quantity_filled)
+    else:
+        capacity -= filling_water
+        total_water_filled += filling_water
+print(total_water_filled)
