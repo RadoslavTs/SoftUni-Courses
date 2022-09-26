@@ -1,6 +1,5 @@
-my_string = input()
-string_to_list = my_string.split(" ")
-resulting_string = []
-for sequence in range(len(string_to_list)):
-    resulting_string.append(int(string_to_list[sequence]) * -1)
-print(resulting_string)
+input_list = input().split()
+resulting_list = []
+for sequence in input_list:
+    resulting_list.append(-int(sequence))
+print(resulting_list)
