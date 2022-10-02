@@ -13,10 +13,7 @@ while command != "No Money":
         index_placement = int(command_list[2])
         if index_placement < len(gift_names):
             gift_names[index_placement] = product
-        else:
-            command = input()
-            continue
-    else:
+    elif command == "JustInCase":
         gift_names[-1] = product
     command = input()
 for element in gift_names:
@@ -24,4 +21,5 @@ for element in gift_names:
         gift_names.remove(element)
 for result in gift_names:
     result_string += result + " "
+result_string = result_string[:-1]
 print(result_string)
