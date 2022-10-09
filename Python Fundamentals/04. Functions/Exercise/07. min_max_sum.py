@@ -1,0 +1,7 @@
+string_int_int = list(map(int, input().split()))
+min_number = min(string_int_int)
+max_number = max(string_int_int)
+sum_number = sum(string_int_int)
+print(f"The minimum number is {min_number}")
+print(f"The maximum number is {max_number}")
+print(f"The sum number is: {sum_number}")

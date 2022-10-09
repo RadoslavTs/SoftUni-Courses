@@ -1,17 +1,18 @@
-grade = float(input())
-
-
 def grades(number):
-    if 2.99 >= number > 2.00:
-        return "Fail"
-    elif 3.00 >= number > 3.49:
-        return "Poor"
+    result = ""
+    if 2.99 >= number >= 2.00:
+        result = "Fail"
+    elif 3.49 >= number >= 3.00:
+        result = "Poor"
     elif 4.49 >= number >= 3.50:
-        return "Good"
+        result = "Good"
     elif 5.49 >= number >= 4.50:
-        return "Very Good"
+        result = "Very Good"
     elif 6.00 >= number >= 5.50:
-        return "Excellent"
+        result = "Excellent"
+
+    return result
 
 
+grade = float(input())
 print(grades(grade))
