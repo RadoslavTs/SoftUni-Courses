@@ -2,11 +2,10 @@ def loading(x):
     percentage_count = x / 10
     dots_count = 10 - (x / 10)
     if x == 100:
-        print("100% Complete!")
-        print(f"[{int(percentage_count) * '%'}{int(dots_count) * '.'}]")
+        return "100% Complete!\n[%%%%%%%%%%]"
     if x < 100:
-        print(f"{x}% [{int(percentage_count) * '%'}{int(dots_count) * '.'}]")
-        print("Still loading...")
+        return f"{x}% [{int(percentage_count) * '%'}{int(dots_count) * '.'}]\nStill loading..."
 
 
-loading(int(input()))
+number = int(input())
+print(loading(number))

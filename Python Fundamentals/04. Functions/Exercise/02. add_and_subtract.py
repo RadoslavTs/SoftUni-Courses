@@ -9,6 +9,7 @@ def subtract(a, b):
 def add_and_subtract(a, b, c):
     pass
 
+
 number_one = int(input())
 number_two = int(input())
 number_three = int(input())

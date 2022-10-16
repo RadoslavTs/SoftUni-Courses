@@ -1,11 +1,14 @@
+def asci_function(x, y):
+    characters = []
+    for current_index in range(ord(x) + 1, ord(y)):
+        characters.append(chr(current_index))
+    return characters
+
+
 first_character = input()
 second_character = input()
 resulting_string = ""
-
-
-for sequence in range(ord(first_character)+1, ord(second_character)):
-    resulting_string += chr(sequence) + " "
-
-print(resulting_string)
+result = asci_function(first_character, second_character)
+print(" ".join(result))
 
 

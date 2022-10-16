@@ -4,9 +4,9 @@ def perfect(x):
         if int(x) % sequence == 0:
             current_sum += sequence
     if current_sum == int(x):
-        print("We have a perfect number!")
-    else:
-        print("It's not so perfect.")
+        return "We have a perfect number!"
+    return "It's not so perfect."
 
 
-perfect(input())
+number = input()
+print(perfect(number))
