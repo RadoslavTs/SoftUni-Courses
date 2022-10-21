@@ -9,7 +9,6 @@
 #         pali_list.append(pali_check)
 #     return pali_list
 #
-#
 # entry_list = input().split(", ")
 # result_list = palindrome(entry_list)
 # print("\n".join(result_list))
