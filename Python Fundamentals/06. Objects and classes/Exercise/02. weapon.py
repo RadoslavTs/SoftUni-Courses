@@ -17,6 +17,7 @@ class Weapon:
     def __repr__(self):
         return f"Remaining bullets: {Weapon.bullets}"
 
+
 weapon = Weapon(5)
 print(weapon.shoot())
 print(weapon.shoot())
