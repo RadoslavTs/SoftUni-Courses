@@ -1,10 +1,4 @@
-class Person:
-    __pi = 3.14
-
-    def __init__(self, name):
-        self.name = name
-
-
-
-Person.__pi += 100
-print(Person.__pi)
+count = int(input())
+print((" " * (count + 1)) + "|")
+for sequence in range(1, count+1):
+    print((" " * (count - sequence) + "*" * sequence + " " + "|" + " " + "*" * sequence))
