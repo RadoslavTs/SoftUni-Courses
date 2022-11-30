@@ -22,7 +22,7 @@ while command != "Season end":
     command = input()
 candidates = {name: sum(player_dict[name].values()) for name in player_dict}
 
-for name, value in sorted(candidates.items(), key=lambda item: -item[1]):
+for name, value in sorted(candidates.items(), key=lambda item: (-item[1], item[0])):
     print(f"{name}: {candidates[name]} skill")
     for pos, score in sorted(player_dict[name].items(), key=lambda x: (-x[1], x[0])):
         print(f"- {pos} <::> {score}")
