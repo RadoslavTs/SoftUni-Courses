@@ -1,30 +1,40 @@
 initial_value = input()
-starting_number = initial_value
-resulting_number = ""
-binary_dict = {"0000": "0", "0001": "1", "0010": "2", "0011": "3", "0100": "4", "0101": "5", "0110": "6", "0111": "7",
-               "1000": "8", "1001": "9", "1010": "A", "1011": "B", "1100": "C", "1101": "D", "1110": "E", "1111": "F"}
-counter = 1
+check_list = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F')
+hex_digit = initial_value.upper()
+check_flag = True
+for digit in hex_value_upper:
+    if digit not in check_list:
+        check_flag = False
+        break
+decimal_result = int()
 explanation_string_one = ""
 explanation_string_two = ""
-while starting_number:
-    current_number = starting_number[-4:]
-    if len(current_number) == 4:
-        resulting_number += binary_dict[current_number]
-    else:
-        if len(current_number) == 3:
-            current_number = "0" + current_number
-        elif len(current_number) == 2:
-            current_number = "00" + current_number
-        elif len(current_number) == 1:
-            current_number = "000" + current_number
-        resulting_number += binary_dict[current_number]
-    if explanation_string_one:
-        explanation_string_one = current_number + " " + explanation_string_one
-        explanation_string_two = binary_dict[current_number] + "    " + explanation_string_two
-    else:
-        explanation_string_one = current_number
-        explanation_string_two = binary_dict[current_number]
-    counter += 1
-    starting_number = starting_number[:-4]
-resulting_number = resulting_number[::-1]
-print(resulting_number)
+if check_flag:
+    for sequence in range(1, len(hex_digit) + 1):
+        temp_digit = hex_digit[sequence - 1]
+        if temp_digit.isdigit():
+            temp_digit = int(temp_digit)
+        temp_power = len(hex_digit) - sequence
+        temp_multiplier = 16 ** (len(hex_digit) - sequence)
+        explanation_string_one += f"({temp_digit} x 16^{temp_power}) + "
+        if temp_digit == "A":
+            temp_digit = 10
+        elif temp_digit == "B":
+            temp_digit = 11
+        elif temp_digit == "C":
+            temp_digit = 12
+        elif temp_digit == "D":
+            temp_digit = 13
+        elif temp_digit == "E":
+            temp_digit = 14
+        elif temp_digit == "F":
+            temp_digit = 15
+        temp_number = temp_digit * temp_multiplier
+        decimal_result += temp_number
+        explanation_string_two += f"{temp_number} + "
+    explanation_string_one = explanation_string_one[:-3]
+    explanation_string_two = explanation_string_two[:-3]
+    explanation = f"Letter legend: A = 10, B = 11, C = 12, D = 13, E = 14, F = 15" '\n' + f"Hex number: {hex_digit} = {explanation_string_one} = {explanation_string_two}"
+    print(explanation)
+else:
+    print("no hex")

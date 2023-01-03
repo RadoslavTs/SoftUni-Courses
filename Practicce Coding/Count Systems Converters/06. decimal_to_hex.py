@@ -6,9 +6,9 @@ explanation = ""
 bit_position = 0
 
 print("Divide by the base 16 to get the digits from the remainders:\n")
-while decimal_number > 0:
-    decimal_to_work_with = decimal_number
-    remainder = decimal_number % 16
+while initial_decimal_number > 0:
+    decimal_to_work_with = initial_decimal_number
+    remainder = initial_decimal_number % 16
     if remainder == 10:
         remainder = "A"
     elif remainder == 11:
@@ -21,14 +21,13 @@ while decimal_number > 0:
         remainder = "E"
     elif remainder == 15:
         remainder = "F"
-    decimal_number = decimal_number // 16
+    initial_decimal_number = initial_decimal_number // 16
     resulting_number += str(remainder)
     explanation += f"{decimal_to_work_with}/16 with a reminder of {remainder} and digit position {bit_position}\n"
     bit_position += 1
 
 result = resulting_number
 resulting_number = resulting_number[::-1]
-
 print(explanation)
 print(f"Resulting number {result} should be counted backwards and we get the final result: {resulting_number}")
-print(f"The hexadecimal representation of {initial_decimal_number} is {resulting_number}")
+print(f"The hexadecimal representation of {decimal_number} is {resulting_number}")
