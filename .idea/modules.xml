@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../Projects/AI/.idea/AI.iml" filepath="$PROJECT_DIR$/../Projects/AI/.idea/AI.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Course.iml" filepath="$PROJECT_DIR$/.idea/Course.iml" />
       <module fileurl="file://$PROJECT_DIR$/../HackerRank/.idea/HackerRank.iml" filepath="$PROJECT_DIR$/../HackerRank/.idea/HackerRank.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Projects/Numeralis/.idea/Numeralis.iml" filepath="$PROJECT_DIR$/../Projects/Numeralis/.idea/Numeralis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Projects/Small Projects/.idea/Small Projects.iml" filepath="$PROJECT_DIR$/../Projects/Small Projects/.idea/Small Projects.iml" />
     </modules>
   </component>
 </project>
