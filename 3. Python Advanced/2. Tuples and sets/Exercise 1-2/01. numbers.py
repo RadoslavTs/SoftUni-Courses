@@ -31,4 +31,4 @@ for sequence in range(counter):
             print("False")
 
 print(', '.join(map(str, sorted(first_set))))
-print(', '.join(map(str, sorted(second_set))))
+print(*sorted(second_set), sep=', ')
