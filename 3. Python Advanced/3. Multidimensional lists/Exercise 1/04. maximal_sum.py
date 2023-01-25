@@ -5,22 +5,20 @@ matrix = []
 for row in range(rows):
     matrix.append([int(x) for x in input().split()])
 
-max_sum = 0
-indexes = []
-for i in range(rows):
-    for j in range(columns):
-        if i+2 < rows and j+2 < columns:
-            current_sum = matrix[i][j] + matrix[i][j+1] + matrix[i][j+2] + \
-                          matrix[i+1][j] + matrix[i+1][j+1] + matrix[i+1][j+2] + \
-                          matrix[i+2][j] + matrix[i+2][j+1] + matrix[i+2][j+2]
-            if max_sum < current_sum:
-                max_sum = current_sum
-                indexes = [i, j, i+1, j+1, i+2, j+2]
-        else:
-            continue
+max_sum = float('-inf')
+biggest_matrix = []
+
+for row in range(rows-2):
+    for col in range(columns-2):
+        first_row = matrix[row][col:col+3]
+        second_row = matrix[row+1][col:col+3]
+        third_row = matrix[row+2][col:col+3]
+
+        current_sum = sum(first_row) + sum(second_row) + sum(third_row)
+
+        if current_sum > max_sum:
+            max_sum = current_sum
+            biggest_matrix = [first_row, second_row, third_row]
 
 print(f"Sum = {max_sum}")
-print(f"{matrix[indexes[0]][indexes[1]]} {matrix[indexes[0]][indexes[3]]} {matrix[indexes[0]][indexes[5]]}")
-print(f"{matrix[indexes[2]][indexes[1]]} {matrix[indexes[2]][indexes[3]]} {matrix[indexes[2]][indexes[5]]}")
-print(f"{matrix[indexes[4]][indexes[1]]} {matrix[indexes[4]][indexes[3]]} {matrix[indexes[4]][indexes[5]]}")
-
+[print(*biggest_matrix[row]) for row in range(3)]

@@ -18,10 +18,8 @@ while command[0] != "END":
             col1 = int(command[2])
             row2 = int(command[3])
             col2 = int(command[4])
-            number_one = matrix[row1][col1]
-            number_two = matrix[row2][col2]
-            matrix[row1][col1] = number_two
-            matrix[row2][col2] = number_one
+            matrix[row1][col1], matrix[row2][col2] = matrix[row2][col2], matrix[row1][col1]
+
             for row in matrix:
                 print(' '.join(str(x) for x in row))
     else:
