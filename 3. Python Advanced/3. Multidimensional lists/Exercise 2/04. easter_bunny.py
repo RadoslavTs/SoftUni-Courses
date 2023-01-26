@@ -9,14 +9,12 @@ def max_eggs_func(matrice, rol, cow, num):
     best_eggs = 0
     dir_list = []
     direct = ""
-    current_sum = 0
-    cur_dir_list = []
 
-    if cow + 1 <= num - 1:  # right
+    if cow + 1 < num:  # right
         current_sum = 0
         cur_dir_list = []
         for i in range(cow + 1, num):
-            if matrice[rol][i] != "X":
+            if matrice[rol][i].isdigit():
                 current_sum += int(matrice[rol][i])
                 cur_dir_list.append([rol, i])
             else:
@@ -25,11 +23,12 @@ def max_eggs_func(matrice, rol, cow, num):
             best_eggs = current_sum
             direct = "right"
             dir_list = cur_dir_list
-    if cow - 1 > 0:  # left
+
+    if cow - 1 >= 0:  # left
         current_sum = 0
         cur_dir_list = []
         for i in range(cow - 1, -1, -1):
-            if matrice[rol][i] != "X":
+            if matrice[rol][i].isdigit():
                 current_sum += int(matrice[rol][i])
                 cur_dir_list.append([rol, i])
             else:
@@ -38,11 +37,12 @@ def max_eggs_func(matrice, rol, cow, num):
             best_eggs = current_sum
             direct = "left"
             dir_list = cur_dir_list
+
     if rol + 1 <= num - 1:  # down
         current_sum = 0
         cur_dir_list = []
         for i in range(rol + 1, num):
-            if matrice[i][cow] != "X":
+            if matrice[i][cow].isdigit():
                 current_sum += int(matrice[i][cow])
                 cur_dir_list.append([i, cow])
             else:
@@ -51,11 +51,12 @@ def max_eggs_func(matrice, rol, cow, num):
             best_eggs = current_sum
             direct = "down"
             dir_list = cur_dir_list
-    if rol - 1 > 0:  # up
+
+    if rol - 1 >= 0:  # up
         current_sum = 0
         cur_dir_list = []
         for i in range(rol - 1, -1, -1):
-            if matrice[i][cow] != "X":
+            if matrice[i][cow].isdigit():
                 current_sum += int(matrice[i][cow])
                 cur_dir_list.append([i, cow])
             else:
@@ -76,7 +77,10 @@ bunny_row, bunny_col = bunny_position
 
 max_eggs, direction, directions = max_eggs_func(matrix, bunny_row, bunny_col, n)
 
-print(direction)
-for dir in directions:
-    print(dir)
-print(max_eggs)
+if max_eggs > 0:
+    print(direction)
+    for dir in directions:
+        print(dir)
+    print(max_eggs)
+else:
+    print(max_eggs)
