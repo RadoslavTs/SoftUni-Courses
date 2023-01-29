@@ -1,137 +1,88 @@
-def valid_command(comm, row, cow, a, b, size):
-    valid_commands = ["left", "right", "up", "down"]
-    valid_check = True
-    if comm not in valid_commands:
-        valid_check = False
-    if comm == "left" and b < 0:
-        valid_check = False
-    if comm == "right" and b > size:
-        valid_check = False
-    if comm == "up" and a < 0:
-        valid_check = False
-    if comm == "down" and a > size:
-        valid_check = False
-    if valid_check:
-        return True
-    else:
-        return False
-
-
-def current_position(matrice, num):
-    for i in range(num):
-        for j in range(num):
-            if matrice[i][j] == "S":
-                return [i, j]
-
-
-
-
 m = int(input())
 n = int(input())
-
-matrix = [[x for x in input().split()] for _ in range(n)]
+matrix = []
+santa_position = []
 
 directions = {
-    "left": (0, -1),
-    "right": (0, 1),
     "up": (-1, 0),
-    "down": (1, 0)
+    "down": (1, 0),
+    "left": (0, -1),
+    "right": (0, 1)
 }
 
-command = input()
-no_more_presents_flag = False
-good_kids_with_presents = 0
-bad_kids_with_presents = 0
+total_nice_kids = 0
+nice_kids_with_presents = 0
 
-while command != "Christmas morning":
-    if m == 0:
-        no_more_presents_flag = True
-        command = input()
+for row in range(n):
+    matrix.append(input().split())
+    if "S" in matrix[row]:
+        santa_position = [row, matrix[row].index("S")]
+    if "V" in matrix[row]:
+        total_nice_kids += matrix[row].count("V")
+
+command = input()
+
+while command != "Christmas morning" and m > 0:
+    row, col = directions[command]
+    new_row, new_col = santa_position[0] + row, santa_position[1] + col
+
+    if not (0 <= new_row < n and 0 <= new_col < n):
         break
-    current_pos_row, current_pos_col = current_position(matrix, n)
-    new_position_row, new_position_col = current_pos_row + directions[command][0], current_pos_col + directions[command][1]
-    new_position_value = matrix[new_position_row][new_position_col]
-    if not valid_command(command, current_pos_row, current_pos_col, new_position_row, new_position_col, n):
-        command = input()
-        continue
-    if new_position_value == "-" or new_position_value == "X":
-        matrix[current_pos_row][current_pos_col] = '-'
-        matrix[new_position_row][new_position_col] = 'S'
-        command = input()
-        continue
-    elif new_position_value == "V":
-        good_kids_with_presents += 1
-        m -= 1
-        matrix[current_pos_row][current_pos_col] = '-'
-        matrix[new_position_row][new_position_col] = 'S'
-        if m == 0:
-            no_more_presents_flag = True
-            break
-        command = input()
-        continue
-    elif new_position_value == "C":
-        matrix[new_position_row][new_position_col] = "S"
-        matrix[current_pos_row][current_pos_col] = "-"
-        if matrix[new_position_row-1][new_position_col] == "V":
-            matrix[new_position_row-1][new_position_col] = "-"
-            if m > 0:
-                good_kids_with_presents += 1
-                m -= 1
-        elif matrix[new_position_row-1][new_position_col] == "X":
-            matrix[new_position_row - 1][new_position_col] = "-"
-            if m > 0:
-                bad_kids_with_presents += 1
-                m -= 1
-        if matrix[new_position_row+1][new_position_col] == "V":
-            matrix[new_position_row-1][new_position_col] = "-"
-            if m > 0:
-                good_kids_with_presents += 1
-                m -= 1
-        elif matrix[new_position_row+1][new_position_col] == "X":
-            matrix[new_position_row - 1][new_position_col] = "-"
-            if m > 0:
-                bad_kids_with_presents += 1
-                m -= 1
-        if matrix[new_position_row][new_position_col-1] == "V":
-            matrix[new_position_row][new_position_col-1] = "-"
-            if m > 0:
-                good_kids_with_presents += 1
-                m -= 1
-        elif matrix[new_position_row][new_position_col-1] == "X":
-            matrix[new_position_row][new_position_col-1] = "-"
-            if m > 0:
-                bad_kids_with_presents += 1
-                m -= 1
-        if matrix[new_position_row][new_position_col+1] == "V":
-            matrix[new_position_row][new_position_col+1] = "-"
-            if m > 0:
-                good_kids_with_presents += 1
-                m -= 1
-        elif matrix[new_position_row][new_position_col+1] == "X":
-            matrix[new_position_row][new_position_col+1] = "-"
-            if m > 0:
-                bad_kids_with_presents += 1
-                m -= 1
+
+    if matrix[new_row][new_col] == '-':
+        matrix[santa_position[0]][santa_position[1]] = '-'
+        matrix[new_row][new_col] = "S"
+        santa_position = [new_row, new_col]
+
+    elif matrix[new_row][new_col] == 'V':
         if m > 0:
-            command = input()
+            matrix[new_row][new_col] = "S"
+            m -= 1
+            nice_kids_with_presents += 1
         else:
-            no_more_presents_flag = True
             break
-        continue
+        matrix[santa_position[0]][santa_position[1]] = "-"
+        santa_position = [new_row, new_col]
+
+    elif matrix[new_row][new_col] == 'X':
+        matrix[new_row][new_col] = "S"
+        matrix[santa_position[0]][santa_position[1]] = "-"
+        santa_position = [new_row, new_col]
+
+    elif matrix[new_row][new_col] == 'C':
+        matrix[santa_position[0]][santa_position[1]] = "-"
+        santa_position = [new_row, new_col]
+        matrix[new_row][new_col] = "S"
+
+        for coord in directions.values():
+            if matrix[santa_position[0] + coord[0]][santa_position[1] + coord[1]] == "-":
+                continue
+            elif matrix[santa_position[0] + coord[0]][santa_position[1] + coord[1]] == "X":
+                if m > 0:
+                    m -= 1
+                    matrix[santa_position[0] + coord[0]][santa_position[1] + coord[1]] = "-"
+                    if m == 0:
+                        break
+                else:
+                    break
+            elif matrix[santa_position[0] + coord[0]][santa_position[1] + coord[1]] == "V":
+                if m > 0:
+                    m -= 1
+                    nice_kids_with_presents += 1
+                    matrix[santa_position[0] + coord[0]][santa_position[1] + coord[1]] = "-"
+                    if m == 0:
+                        break
+                else:
+                    break
+    if m == 0:
+        break
     command = input()
 
-good_kids_left = 0
-
-for row in matrix:
-    for el in row:
-        if el == "V":
-            good_kids_left += 1
-
-if m == 0 and good_kids_left > 0:
+if total_nice_kids - nice_kids_with_presents > 0 and m == 0:
     print("Santa ran out of presents!")
 for row in matrix:
-    print(' '.join(row))
-if good_kids_left == 0:
-    print(f"Good job, Santa! {good_kids_with_presents} happy nice kid/s.")
+    print(*row)
+if total_nice_kids == nice_kids_with_presents:
+    print(f"Good job, Santa! {nice_kids_with_presents} happy nice kid/s.")
 else:
-    print(f"No presents for {good_kids_left} nice kid/s.")
+    print(f"No presents for {total_nice_kids - nice_kids_with_presents} nice kid/s.")
