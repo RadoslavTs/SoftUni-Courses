@@ -37,5 +37,7 @@ while True:
         print("Invalid coordinates")
         continue
 
-for row in matrix:
-    print(' '.join(str(x) for x in row))
+[print(*row) for row in matrix]
+
+# for row in matrix:
+#     print(' '.join(str(x) for x in row))
