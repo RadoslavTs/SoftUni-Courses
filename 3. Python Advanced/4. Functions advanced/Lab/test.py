@@ -1,28 +1,10 @@
-def calculator(operator):
-    def addition(a, b):
-        return a+b
+def mutate_string(string, position, character):
+    l = list(string)
+    l[position] = character
+    return ''.join(l)
 
-    def subtraction(a, b):
-        return a-b
-
-    def division(a, b):
-        return a/b
-
-    def multiplication(a,b):
-        return a*b
-
-    if operator == "+":
-        return addition
-
-    elif operator == "-":
-        return subtraction
-
-    elif operator == "*":
-        return multiplication
-
-    elif operator == "/":
-        return division
-
-
-function_result = calculator("/")
-print(function_result(1, 2))
+if __name__ == '__main__':
+    s = input()
+    i, c = input().split()
+    s_new = mutate_string(s, int(i), c)
+    print(s_new)

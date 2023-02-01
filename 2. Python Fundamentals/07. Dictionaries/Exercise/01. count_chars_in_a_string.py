@@ -7,4 +7,3 @@ for character in word_input:
         character_dictionary[character] += 1
 for character in character_dictionary:
     print(f"{character} -> {character_dictionary[character]}")
-    

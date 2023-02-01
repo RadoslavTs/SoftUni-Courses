@@ -1,5 +1,14 @@
-def palindrome():
-    pass
+def palindrome(word, left_index, right_index=-1):
+    if left_index == len(word) // 2:
+        return f"{word} is a palindrome"
+
+    if word[left_index] != word[right_index]:
+        return f"{word} is not a palindrome"
+
+    return palindrome(word, left_index + 1, right_index - 1)
 
 
-print(1)
+print(palindrome("abcba", 0))
+# print(palindrome("peter", 0))
+
+

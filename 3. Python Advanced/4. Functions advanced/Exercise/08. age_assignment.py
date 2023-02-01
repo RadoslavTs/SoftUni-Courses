@@ -2,7 +2,7 @@ def age_assignment(*args, **kwargs):
     result = []
     for name in sorted(args):
         for key, value in kwargs.items():
-            if key == name[0]:
+            if name.startswith(key):
                 result.append((name, value))
     result_print = ''
     for name, age in result:
