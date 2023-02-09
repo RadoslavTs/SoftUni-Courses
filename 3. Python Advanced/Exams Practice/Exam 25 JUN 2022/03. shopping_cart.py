@@ -1,29 +1,49 @@
-from collections import deque
+def shopping_cart(*meals):
+    meals_dict = {
+        'Soup': [],
+        'Pizza': [],
+        'Dessert': []
+    }
 
-def merge_the_tools(string, k):
-    n = int(len(string) / k)
-    deque_string = deque(list(string))
-    final_result = ''
-    final_string_result = ''
+    limit_dict = {
+        "Soup": 3,
+        "Pizza": 4,
+        "Dessert": 2
+    }
 
-    for _ in range(n):
-        resulting_word = []
-        for p in range(k):
-            current_letter = deque_string.popleft()
-            if not resulting_word:
-                resulting_word.append(current_letter)
-            else:
-                if current_letter not in resulting_word:
-                    resulting_word.append(current_letter)
+    total_products = 0
 
-        letters = ''
-        for let in resulting_word:
-            letters += let
-        final_result += f'{letters}\n'
+    for meal in meals:
+        if meal == "Stop":
+            break
+        current_meal = meal[0]
+        current_product = meal[1]
+        if current_product not in meals_dict[current_meal] and len(meals_dict[current_meal]) < limit_dict[current_meal]:
+            meals_dict[current_meal].append(current_product)
 
-    return final_result
+    result = ''
+    for meal, product in sorted(meals_dict.items(), key=lambda x: (-len(x[1]), x[0])):
+        result += (f"{meal}:\n")
+        for prod in sorted(product):
+            result += f" - {prod}\n"
 
-input_string = 'AABCAAADA'
-k_coef = 3
+    for meal, product in meals_dict.items():
+        total_products += len(product)
 
-print(merge_the_tools(input_string, k_coef))
+    if total_products:
+        return result
+    else:
+        return f"No products in the cart!"
+
+
+print(shopping_cart(
+    ('Pizza', 'ham'),
+    ('Soup', 'carrots'),
+    ('Pizza', 'cheese'),
+    ('Pizza', 'flour'),
+    ('Dessert', 'milk'),
+    ('Pizza', 'mushrooms'),
+    ('Pizza', 'tomatoes'),
+    'Stop',
+))
+

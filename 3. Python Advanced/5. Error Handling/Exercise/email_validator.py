@@ -1,5 +1,6 @@
 from re import findall
 
+
 class NameTooShortError(Exception):
     pass
 
