@@ -1,13 +1,14 @@
 def print_matrix():
-    print_result = ''
     for row in matrix:
-        print_result += '[' + ', '.join(str(x) for x in row) + ']''\n'
-    return print(print_result)
+        print(row)
 
 
-def user_input(matrix_size, player):
+def user_input(matrix_size, player, columns):
     player_move = int(input(f'Player {player}, please choose a column: '))
     player_move -= 1
+    if player_move >= columns:
+        return print('Invalid position'), user_input(matrix_size, player, columns)
+
     if matrix[0][player_move] != 0:
         return print('No more space in this column'), user_input(matrix_size, player)
 
@@ -18,6 +19,7 @@ def user_input(matrix_size, player):
             elif player == 2:
                 matrix[row][player_move] = player
             print_matrix()
+            print()
             break
         else:
             continue
@@ -102,12 +104,12 @@ while True:
     if not check_available_places(matrix, matrix_columns):
         break
 
-    user_input(len(matrix), 1)
+    user_input(len(matrix), 1, matrix_columns)
     player_one_flag = check_win(matrix_rows, matrix_columns, 1, needed_same)
     if player_one_flag:
         break
 
-    user_input(len(matrix), 2)
+    user_input(len(matrix), 2, matrix_columns)
     player_two_flag = check_win(matrix_rows, matrix_columns, 2, needed_same)
     if player_two_flag:
         break
