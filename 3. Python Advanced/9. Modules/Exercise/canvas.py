@@ -6,7 +6,7 @@ def create_root():
 
     root.title("GUI Shop")
     root.resizable(False, False)
-    root.geometry(f"800x600")
+    root.geometry(f"800x700")
 
     return root
 

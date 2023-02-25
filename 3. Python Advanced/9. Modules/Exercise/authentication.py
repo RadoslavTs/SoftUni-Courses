@@ -1,8 +1,9 @@
 from json import loads, dump
 from tkinter import Button, Entry
 from canvas import root, frame
-from helpers import clean_screen
+from helpers import clean_screen, get_password_hash
 from buying_page import display_products
+
 
 def render_entry():
     register_button = Button(
@@ -63,14 +64,25 @@ def registration():
         "first_name": first_name_box.get(),
         "last_name": last_name_box.get(),
         "username": username_box.get(),
-        "password": password_box.get()
+        "password": get_password_hash(password_box.get())
     }
 
     if check_registration(info_dict):
         with open('db/users_info.txt', 'a') as users_file:
             dump(info_dict, users_file)
             users_file.write('\n')
-            display_products()
+            go_to_shop_btn = Button(
+                root,
+                text='Shop',
+                font=("Comic Sans MS", 12),
+                bg='green',
+                fg='white',
+                width=5,
+                command=display_products
+            )
+            clean_screen()
+            frame.create_text(350, 300, text='Successful registration', font=('Comic Sans MS', 12), fill='green')
+            frame.create_window(350, 400, window=go_to_shop_btn)
 
 
 def check_registration(info):
@@ -113,13 +125,6 @@ def login_func():
 
     frame.create_window(200, 50, window=username_box)
     frame.create_window(200, 100, window=password_box)
-    login_btn = Button(
-        root,
-        text='Login',
-        bg='blue',
-        fg='white',
-        command=logging,
-    )
 
     frame.create_window(250, 150, window=login_btn)
     frame.create_window(700, 50, window=main_menu_btn)
@@ -137,7 +142,7 @@ def check_logging():
     info_data = get_users_data()  # TODO - hash the password!
 
     current_username = username_box.get()
-    current_password = password_box.get()
+    current_password = get_password_hash(password_box.get())
 
     for i in range(len(info_data)):
         username = info_data[i]["username"]
@@ -154,8 +159,33 @@ def back_to_main():
     render_entry()
 
 
+def check_login_filled(event):
+    info = {
+        "username": username_box.get(),
+        "password": password_box.get()
+    }
+
+    for el in info.values():
+        if not el.strip():
+            login_btn["state"] = 'disabled'
+            break
+        else:
+            login_btn["state"] = 'normal'
+
+
 main_menu_btn = Button(root, text='Back to main', bg='blue', fg='white', command=back_to_main,)
 first_name_box = Entry(root, bd=0)
 last_name_box = Entry(root, bd=0)
 username_box = Entry(root, bd=0)
 password_box = Entry(root, bd=0, show='*')  # TODO - add show/hide functionality
+
+login_btn = Button(
+    root,
+    text='Login',
+    bg='blue',
+    fg='white',
+    command=logging,
+)
+
+login_btn['state'] = 'disabled'
+root.bind('<KeyRelease>', check_login_filled)
