@@ -113,11 +113,11 @@ ENV/
 env.bak/
 venv.bak/
 
-# Spyder project settings
+# Spyder 05. to_do_list settings
 .spyderproject
 .spyproject
 
-# Rope project settings
+# Rope 05. to_do_list settings
 .ropeproject
 
 # mkdocs documentation
