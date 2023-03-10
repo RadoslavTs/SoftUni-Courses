@@ -1,5 +1,8 @@
+from typing import List
+
 from project.animal import Animal
 from project.vet import Vet
+from project.worker import Worker
 
 
 class Zoo:
@@ -8,12 +11,12 @@ class Zoo:
         self.__budget = budget
         self.__animal_capacity = animal_capacity
         self.__workers_capacity = workers_capacity
-        self.animals = []
-        self.workers = []
+        self.animals: List[Animal] = []
+        self.workers: List[Worker] = []
         self.remaining_worker_capacity = workers_capacity
         self.remaining_animal_capacity = animal_capacity
 
-    def add_animal(self, animal, price):
+    def add_animal(self, animal: Animal, price: float) -> str:
         if self.__budget >= price and self.remaining_animal_capacity > 0:
             self.animals.append(animal)
             self.__budget -= price
@@ -24,7 +27,7 @@ class Zoo:
         else:
             return "Not enough space for animal"
 
-    def hire_worker(self, worker):
+    def hire_worker(self, worker: Worker):
         if self.remaining_worker_capacity > 0:
             self.workers.append(worker)
             self.remaining_worker_capacity -= 1
@@ -62,52 +65,39 @@ class Zoo:
         self.__budget += amount
 
     def animals_status(self):
-        lions = []
-        cheetas = []
-        tigers = []
+        lions = list(filter(lambda x: x.__class__.__name__ == "Lion", self.animals))
+        cheetas = list(filter(lambda x: x.__class__.__name__ == "Cheetah", self.animals))
+        tigers = list(filter(lambda x: x.__class__.__name__ == "Tiger", self.animals))
 
-        for animal in self.animals:
-            if animal.__class__.__name__ == "Lion":
-                lions.append(animal)
-            elif animal.__class__.__name__ == "Cheetah":
-                cheetas.append(animal)
-            else:
-                tigers.append(animal)
-        lions_string = f"----- {len(lions)} Lions:\n"
-        tigers_string = f"----- {len(tigers)} Tigers:\n"
-        cheetas_string = f"----- {len(cheetas)} Cheetahs:\n"
-        for lion in lions:
-            lions_string += f'{lion}\n'
-        for tiger in tigers:
-            tigers_string += f'{tiger}\n'
-        for cheetah in cheetas:
-            cheetas_string += f"{cheetah}\n"
+        result = [
+            f"You have {len(self.animals)} animals",
+            f"----- {len(lions)} Lions:",
+        ]
+        result.extend(lions)
 
-        return f"You have {len(self.animals)} animals\n" + f"{lions_string}" + f"{tigers_string}" + f"{cheetas_string[:-1]}"
+        result.append(f"----- {len(tigers)} Tigers:")
+        result.extend(tigers)
+
+        result.append(f"----- {len(cheetas)} Cheetahs:")
+        result.extend(cheetas)
+
+        return '\n'.join(str(x) for x in result)
 
     def workers_status(self):
-        keepers = []
-        caretakers = []
-        vets = []
+        info = {"Keeper": [], "Caretaker": [], "Vet": []}
+        [info[w.__class__.__name__].append(str(w)) for w in self.workers]
 
-        for worker in self.workers:
-            if worker.__class__.__name__ == "Keeper":
-                keepers.append(worker)
-            elif worker.__class__.__name__ == "Caretaker":
-                caretakers.append(worker)
-            else:
-                vets.append(worker)
-        keepers_string = f"----- {len(keepers)} Keepers:\n"
-        caretakers_string = f"----- {len(caretakers)} Caretakers:\n"
-        vets_string = f"----- {len(vets)} Vets:\n"
-        for keeper in keepers:
-            keepers_string += f'{keeper}\n'
-        for caretaker in caretakers:
-            caretakers_string += f'{caretaker}\n'
-        for vet in vets:
-            vets_string += f"{vet}\n"
+        result = [
+            f"You have {len(self.workers)} workers",
+            f"----- {len(info['Keeper'])} Keepers:",
+            *info["Keeper"],
+            f"----- {len(info['Caretaker'])} Caretakers:",
+            *info["Caretaker"],
+            f"----- {len(info['Vet'])} Vets:",
+            *info["Vet"],
+        ]
 
-        return f"You have {len(self.workers)} workers\n" + f"{keepers_string}" + f"{caretakers_string}" + f"{vets_string[:-1]}"
+        return '\n'.join(result)
 
     def return_workers(self):
         print(f'{self.workers}, {self.__workers_capacity}')

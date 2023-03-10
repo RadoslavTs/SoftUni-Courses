@@ -10,4 +10,3 @@ class Product:
     @property
     def price(self):
         return self.__price
-

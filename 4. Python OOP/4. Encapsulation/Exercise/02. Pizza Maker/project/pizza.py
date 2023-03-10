@@ -50,7 +50,6 @@ class Pizza:
             self.remaining_space_for_toppings -= 1
 
     def calculate_total_weight(self):
-        weight = self.dough.weight
-        for topping in self.toppings:
-            weight += self.toppings[topping]
+        weight = sum(self.toppings.values()) + self.dough.weight
+
         return weight

@@ -2,7 +2,7 @@ from project.animal import Animal
 
 
 class Cheetah(Animal):
-    EXPENSE = 60
+    MONEY_FOR_CARE = 60
 
-    def __init__(self, name, gender, age):
-        super().__init__(name, gender, age, Cheetah.EXPENSE)
+    def __init__(self, name: str, gender: str, age: int):
+        super().__init__(name, gender, age, Cheetah.MONEY_FOR_CARE)
