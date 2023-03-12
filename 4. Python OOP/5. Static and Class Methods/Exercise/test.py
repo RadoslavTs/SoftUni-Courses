@@ -1,11 +1,4 @@
-from functools import reduce
+from math import ceil
 
-
-class Calculator:
-
-    @staticmethod
-    def addition(lst):
-        return reduce(lambda a, b: a + b, lst)
-
-
-print(Calculator.addition([1, 2, 3, 4]))
+print(9 // 4)
+print(ceil(9 / 4))

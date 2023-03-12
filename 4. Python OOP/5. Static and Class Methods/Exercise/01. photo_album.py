@@ -1,36 +1,36 @@
+from math import ceil
+
+
 class PhotoAlbum:
+    PHOTOS_PER_PAGE = 4
+
     def __init__(self, pages: int):
         self.pages = pages
-        self.photos = [[] for x in range(self.pages)]
+        self.photos = [[] for x in range(pages)]
 
     @classmethod
     def from_photos_count(cls, photos_count: int):
-        pages = photos_count // 4
-        return cls(pages)
+        return cls(ceil(photos_count / cls.PHOTOS_PER_PAGE))
 
     def add_photo(self, label: str):
-        for iterate in range(self.pages):
-            if len(self.photos[iterate]) < 4:
-                self.photos[iterate].append(label)
-                return f"{label} photo added successfully on page {iterate+1} slot {len(self.photos[iterate])}"
+        for page in range(self.pages):
+            if len(self.photos[page]) < PhotoAlbum.PHOTOS_PER_PAGE:
+                self.photos[page].append(label)
+                return f"{label} photo added successfully on page {page + 1} slot {len(self.photos[page])}"
+            
         return f"No more free slots"
 
-    def display(self):
+    def display(self) -> str:
+        result = ['-' * 11]
         start_end = '-' * 11
         photos = [x for x in self.photos]
         new_album = []
+
         for page in self.photos:
-            new_page = ''
-            for el in page:
-                new_page += '[] '
-            new_album.append(new_page)
-        for i in range(len(new_album)):
-            new_album[i] = new_album[i].strip()
-        for i in range(len(new_album)):
-            if i < len(new_album) - 1:
-                new_album[i] = new_album[i] + '\n'
-        mid_string = '-----------\n'.join(new_album)
-        return f"{start_end}\n{mid_string}\n{start_end}"
+            result.append(('[] '* len(page)).rstrip())
+            result.append('-' * 11)
+
+        return '\n'.join(result)
 
 
 album = PhotoAlbum(2)
