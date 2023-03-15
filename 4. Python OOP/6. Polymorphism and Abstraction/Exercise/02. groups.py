@@ -11,7 +11,7 @@ class Person:
     
     def __add__(self, other):
         return Person(self.name, other.surname)
-    
+
 
 class Group:
     def __init__(self, name: str, people: List[Person]) -> None:
@@ -23,27 +23,16 @@ class Group:
     
     def __add__(self, other):
         name = f'{self.name} {other.name}'
-        people = []
-        for person in self.people:
-            people.append(person)
-        
-        for person in other.people:
-            people.append(person)
+        people = self.people + other.people
+        new_group = Group(name, people)
 
-        return Group(name, people)
+        return new_group
     
     def __repr__(self) -> str:
-        return f"Group {self.name} with members: {', '.join(x.name for x in self.people)}"
+        return f"Group {self.name} with members {', '.join(f'{x.name} {x.surname}' for x in self.people)}"
     
-    def __iter__(self):
-         self.i = -1
-         return self
-    
-    def __next__(self):
-        self.i += 1
-        if self.i == len(self.people):
-            quit()
-        return f"Person {self.i}: {self.people[self.i].name} {self.people[self.i].surname}"
+    def __getitem__(self, item):
+        return f"Person {item}: {self.people[item].name} {self.people[item].surname}"
   
     
 p0 = Person('Aliko', 'Dangote')
@@ -58,7 +47,8 @@ third_group = first_group + second_group
 
 print(len(first_group))
 print(second_group)
-# print(third_group[0])
+print(third_group[0])
 
 for person in third_group:
     print(person)
+
