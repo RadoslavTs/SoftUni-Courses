@@ -8,7 +8,6 @@ def fibonacci():
 
 
 generator = fibonacci()
-my_list = []
 for i in range(5):
     print(next(generator))
 # generator = fibonacci()
