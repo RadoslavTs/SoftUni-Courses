@@ -81,3 +81,7 @@ class ChristmasPastryShopApp:
 
     def get_income(self):
         return f"Income: {self.income:.2f}lv."
+
+
+
+

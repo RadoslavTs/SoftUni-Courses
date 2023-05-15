@@ -1,9 +1,13 @@
 def cache(func):
+    log = {}
 
     def wrapper(n):
-        log = {}
-        for i in range(n):
-            log[i+1] = func(i)
+        if n not in wrapper.log:
+            wrapper.log[n] = func(n)
+
+        return wrapper.log[n]
+
+    wrapper.log = {}
 
     return wrapper
 
@@ -16,5 +20,5 @@ def fibonacci(n):
         return fibonacci(n - 1) + fibonacci(n - 2)
 
 
-fibonacci(3)
+fibonacci(499)
 print(fibonacci.log)

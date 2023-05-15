@@ -8,7 +8,6 @@ class Concert:
         self.expenses = expenses
         self.place = place
 
-
     @property
     def genre(self):
         return self.__genre
@@ -35,7 +34,7 @@ class Concert:
 
     @ticket_price.setter
     def ticket_price(self, value):
-        if value < 1:
+        if value < 1.00:
             raise ValueError("Ticket price must be at least 1.00$!")
         self.__ticket_price = value
         
@@ -45,7 +44,7 @@ class Concert:
     
     @expenses.setter
     def expenses(self, value):
-        if value < 0:
+        if value < 0.00:
             raise ValueError("Expenses cannot be a negative number!")
         self.__expenses = value
 
@@ -55,7 +54,7 @@ class Concert:
 
     @place.setter
     def place(self, value):
-        if len(value.strip()) < 2:
+        if len(value) < 2 or not value.isspace():
             raise ValueError("Place must contain at least 2 chars. It cannot be empty!")
         self.__place = value
 

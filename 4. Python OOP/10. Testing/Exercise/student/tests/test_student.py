@@ -23,7 +23,7 @@ class TestTheStudent(unittest.TestCase):
         self.assertEqual(self.my_student.enroll('Bilogy', ['cool'], ''),
                          "Course and course notes have been added.")
         self.assertEqual(self.my_student.courses, {'Maths': ['my note'], 'Bilogy': ['cool']})
-        
+
     def test_enrollment_new_y_string(self):
         self.assertEqual(self.my_student.enroll('Bilogy', ['cool'], 'Y'),
                          "Course and course notes have been added.")

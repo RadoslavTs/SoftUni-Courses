@@ -14,8 +14,7 @@ class Band:
 
     @name.setter
     def name(self, value):
-        value_set = set(list(value))
-        if not value or (len(value_set) == 1 and value_set.pop() == ' '):
+        if not value.strip():
             raise ValueError("Musician name cannot be empty!")
         self.__name = value
 
@@ -26,4 +25,4 @@ class Band:
         self.members.remove(musician)
 
     def __str__(self):
-        return f"{self.__name} with {len(self.members)} members."
+        return f"{self.name} with {len(self.members)} members."
